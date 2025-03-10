@@ -1,5 +1,4 @@
 
-
 !pip install -q xlrd
 import pandas as pd
 import numpy as np
@@ -15,6 +14,14 @@ xls = pd.ExcelFile('/content/drive/MyDrive/Colab Notebooks/datasets/Pinzon_etal_
 df1 = pd.read_excel(xls, 'Spiders')
 df2 = pd.read_excel(xls, 'Ants')
 df3 = pd.read_excel(xls, 'Carabid beetles')
+
+def nameget(df):
+  if df.iloc[3,4]=='Agelutah':
+    return 'Spiders'
+  elif df.iloc[3,4]=='Campnova':
+    return 'Ants'
+  else:
+    return 'Carabid beetles'
 
 
 def plotdata(df):
@@ -92,7 +99,7 @@ def sitemean(dataset):
   
 
   for x in lstmeanB:
-    print(statistics.mean(x))
+    
     outhighB.append(statistics.mean(x))
 
 
@@ -105,11 +112,35 @@ def sitemean(dataset):
   
 
   for x in lstmeanU:
-    print(statistics.mean(x))
     outhighU.append(statistics.mean(x))
 
   print(max(outhighU),max(outhighB))
   print(lstUSite[outhighU.index(max(outhighU))],lstBSite[outhighB.index(max(outhighB))])
+
+
+  y_pos=np.arange(len(lstBSite))
+  fig, ax = plt.subplots()
+  hbars = ax.barh(y_pos, outhighB,  align='center')
+  ax.set_yticks(y_pos, labels=lstBSite)
+  ax.invert_yaxis()  # labels read top-to-bottom
+  ax.set_xlabel('Abundance')
+  ax.set_title('Abundance of %s.'%nameget(dataset))
+  # Label with specially formatted floats
+  ax.bar_label(hbars, fmt='%.2f')
+  ax.set_xlim(left=0) 
+
+  y_pos=np.arange(len(lstUSite))
+  fig, ax = plt.subplots()
+  hbars = ax.barh(y_pos, outhighU,  align='center')
+  ax.set_yticks(y_pos, labels=lstUSite)
+  ax.invert_yaxis()  # labels read top-to-bottom
+  ax.set_xlabel('Abundance')
+  ax.set_title('Abundance of %s.'%nameget(dataset))
+  # Label with specially formatted floats
+  ax.bar_label(hbars, fmt='%.2f')
+  ax.set_xlim(left=0) 
+
+
 
 
 def speciesmean(dataset):
@@ -121,17 +152,32 @@ def speciesmean(dataset):
     specievalue.append(list(dataset.iloc[4:,x]))
 
 
-  print(specienameslst)
-  print(specievalue)
-
   speciesmeanget=[]
   for x in specievalue:
     speciesmeanget.append(statistics.mean(x))
 
   print(max(speciesmeanget),specienameslst[speciesmeanget.index(max(speciesmeanget))])
+  
 
-  plt.barh(specienameslst,speciesmeanget)
-  plt.show()
+
+  y_pos=np.arange(len(specienameslst))
+  
+  fig, ax = plt.subplots()
+
+  hbars = ax.barh(y_pos, speciesmeanget,  align='center')
+  ax.set_yticks(y_pos, labels=specienameslst)
+  ax.invert_yaxis()  # labels read top-to-bottom
+  ax.set_xlabel('Abundance')
+  ax.set_title('Abundance of %s.'%nameget(dataset))
+
+  # Label with specially formatted floats
+  ax.bar_label(hbars, fmt='%.2f')
+  ax.set_xlim(left=0) 
+
+
+
+
+
 
 
 def speciesBaUmean(dataset):
@@ -182,12 +228,20 @@ def speciesBaUmean(dataset):
   plt.show()
 
 
-dexplot(df2,22)
+#dexplot(df1,22)
 
-speciesBaUmean(df2)
+#sitemean(df3)
 
-sitemean(df2)
+#speciesBaUmean(df1)
 
-speciesmean(df2)
+print('-----------------------------------------------------------------------------')
 
-plotdata(df)
+
+#speciesmean(df1)
+
+
+
+#plotdata(df)
+
+
+
