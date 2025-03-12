@@ -23,7 +23,7 @@ def nameget(df):
   else:
     return 'Carabid beetles'
 
-
+#appendixs3
 def plotdata(df):
   print(type(df))
   data = pd.DataFrame(df)
@@ -57,6 +57,7 @@ def plotdata(df):
   plt.barh(inplotx,y)
   plt.show()
 
+#Pinzon_etal_EAP20-0549.R1
 def dexplot(dexframe,dexin):
   print('The plotable indexs in the frame are 3 to %s.'%(len(dexframe.columns)-1))
   inplotx=[]
@@ -71,6 +72,7 @@ def dexplot(dexframe,dexin):
   plt.barh(inplotx,inploty)
   plt.show()
 
+#Pinzon_etal_EAP20-0549.R1
 def sitemean(dataset):
   """
   prints out the means of each site in two list brun unbrun 
@@ -117,7 +119,7 @@ def sitemean(dataset):
 
 
 
-
+#Pinzon_etal_EAP20-0549.R1
 def speciesmean(dataset):
   specienameslst=[]
   specievalue=[]
@@ -141,6 +143,7 @@ def speciesmean(dataset):
   ax.bar_label(hbars, fmt='%.2f')
   ax.set_xlim(left=0) 
 
+#Pinzon_etal_EAP20-0549.R1
 def speciesBaUmean(dataset):
 
   specienameslst=[]
